@@ -11,9 +11,11 @@ const components = path.join(__dirname, 'components')
 const indexFile = path.join(projFolder, 'index.html');
 const templateFile = path.join(__dirname, 'template.html');
 
+
 // создаем новую директорию project-dist
 createDirectory(projFolder).then((path) => {
     stdout.write(`*** Новая директория создана: ${path}\n`);
+
     //создаем новый файл style.css ('w' - открыть файл для записи; при этом существующие данные затираются)
     fs.open(styleFile, 'w', (err) => {
         if (err) throw err;
@@ -35,6 +37,7 @@ createDirectory(newDirectoryAssets).then((path) => {
 }).catch((error) => {
     console.log(`Problem creating directory: ${error.message}`)
 });
+
 
 // выбираем файлы из указанной директории
 function selectFiles(directory, newDirectory) {

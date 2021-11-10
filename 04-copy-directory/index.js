@@ -5,6 +5,17 @@ const { stdout } = process;
 const oldDirectory = path.join(__dirname, 'files')
 const newDirectory = path.join(__dirname, 'files-copy')
 
+// создаем новую директорию, если её не было
+createDirectory(newDirectory).then((path) => {
+    stdout.write(`\n*** Новая директория создана: ${path}\n`);
+    // если директория создана - выбираем файлы из нее
+
+    selectFiles();
+
+}).catch((error) => {
+    console.log(`Problem creating directory: ${error.message}`)
+});
+
 // удаляем все файлы из новой директории
 fs.readdir(newDirectory, (err, files) => {
     if (err) throw err;
@@ -14,16 +25,6 @@ fs.readdir(newDirectory, (err, files) => {
             if (err) throw err;
         });
     }
-});
-
-// создаем новую директорию, если её не было
-createDirectory(newDirectory).then((path) => {
-    stdout.write(`\n*** Новая директория создана: ${path}\n`);
-    // если директория создана - выбираем файлы из нее
-    selectFiles();
-
-}).catch((error) => {
-    console.log(`Problem creating directory: ${error.message}`)
 });
 
 function createDirectory(newDirectory) {
